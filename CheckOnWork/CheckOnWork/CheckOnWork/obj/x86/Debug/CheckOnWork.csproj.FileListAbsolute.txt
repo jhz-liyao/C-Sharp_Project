@@ -1,0 +1,13 @@
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\bin\Debug\CheckOnWork.exe
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\bin\Debug\CheckOnWork.pdb
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.Form1.resources
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.Properties.Resources.resources
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\ResGen.read.1.tlog
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\ResGen.write.1.tlog
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.exe
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.pdb
+E:\#robot_liyao\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.csproj.ResolveComReference.cache
+E:\#个人资料\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.csproj.ResolveComReference.cache
+E:\#个人资料\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.exe
+E:\#个人资料\Visual Studio Project\CheckOnWork\CheckOnWork\CheckOnWork\obj\x86\Debug\CheckOnWork.pdb

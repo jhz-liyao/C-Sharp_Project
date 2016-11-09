@@ -1,0 +1,17 @@
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\bin\Debug\AnalyzeVoltageExcel.exe
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\bin\Debug\AnalyzeVoltageExcel.pdb
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\AnalyzeVoltageExcel.Form1.resources
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\AnalyzeVoltageExcel.Properties.Resources.resources
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\AnalyzeVoltageExcel.csproj.GenerateResource.Cache
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\AnalyzeVoltageExcel.exe
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\AnalyzeVoltageExcel.pdb
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.ACTIVEXLib.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.LCC11.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.MODI.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.MsoEuro.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.MSORUNLib.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.MSOSOAPLib30.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.OSE.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.WinInetConnectorLib.dll
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\AnalyzeVoltageExcel.csproj.ResolveComReference.cache
+E:\资源(G：)\#个人项目\Visual Studio Project\AnalyzeVoltageExcel\AnalyzeVoltageExcel\AnalyzeVoltageExcel\obj\x86\Debug\Interop.Microsoft.Office.Core.dll

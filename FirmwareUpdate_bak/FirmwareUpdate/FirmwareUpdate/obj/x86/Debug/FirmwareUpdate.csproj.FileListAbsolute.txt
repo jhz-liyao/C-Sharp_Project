@@ -1,0 +1,16 @@
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\bin\Debug\FirmwareUpdate.exe
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\bin\Debug\FirmwareUpdate.pdb
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.Form1.resources
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.Properties.Resources.resources
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.exe
+E:\#个人资料\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.pdb
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.exe
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.pdb
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\bin\Debug\FirmwareUpdate.exe
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\bin\Debug\FirmwareUpdate.pdb
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.Form1.resources
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.Properties.Resources.resources
+G:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.csproj.GenerateResource.Cache
+D:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.exe
+D:\#个人项目\Visual Studio Project\FirmwareUpdate\FirmwareUpdate\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.pdb

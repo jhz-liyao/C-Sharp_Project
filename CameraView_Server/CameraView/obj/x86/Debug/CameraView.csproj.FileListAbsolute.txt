@@ -1,0 +1,12 @@
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\bin\Debug\CameraView.exe
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\bin\Debug\CameraView.pdb
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\obj\x86\Debug\CameraView.Form1.resources
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\obj\x86\Debug\CameraView.Properties.Resources.resources
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\obj\x86\Debug\CameraView.csproj.GenerateResource.Cache
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\obj\x86\Debug\CameraView.exe
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\obj\x86\Debug\CameraView.pdb
+D:\#个人项目\Visual Studio Project\CameraView\CameraView\obj\x86\Debug\CameraView.csprojResolveAssemblyReference.cache
+D:\#个人项目\Visual Studio Project\CameraView_server\CameraView\obj\x86\Debug\CameraView.exe
+D:\#个人项目\Visual Studio Project\CameraView_server\CameraView\obj\x86\Debug\CameraView.pdb
+E:\资源\个人项目\Visual Studio Project\CameraView_Server\CameraView\obj\x86\Debug\CameraView.exe
+E:\资源\个人项目\Visual Studio Project\CameraView_Server\CameraView\obj\x86\Debug\CameraView.pdb

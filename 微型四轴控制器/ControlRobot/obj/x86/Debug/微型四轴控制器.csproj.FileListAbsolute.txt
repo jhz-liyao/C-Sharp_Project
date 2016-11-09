@@ -1,0 +1,8 @@
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\bin\Debug\ControlRobot.exe.config
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\obj\x86\Debug\ControlRobot.exe
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\obj\x86\Debug\ControlRobot.pdb
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\obj\x86\Debug\ControlRobot.Form1.resources
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\obj\x86\Debug\ControlRobot.Properties.Resources.resources
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\obj\x86\Debug\微型四轴控制器.csproj.GenerateResource.Cache
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\bin\Debug\ControlRobot.exe
+D:\#个人项目\Visual Studio Project\微型四轴控制器\ControlRobot\bin\Debug\ControlRobot.pdb

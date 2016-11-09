@@ -1,0 +1,28 @@
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\ResolveAssemblyReference.cache
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\LineChar.Form1.resources
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\LineChar.Properties.Resources.resources
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\LineChar.csproj.ResolveComReference.cache
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\bin\Debug\LineChar.exe
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\bin\Debug\LineChar.pdb
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\bin\Debug\Microsoft.Office.Interop.Owc11.dll
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\LineChar.exe
+E:\#robot_liyao\Visual Studio Project\LineChar\LineChar\obj\Debug\LineChar.pdb
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csproj.ResolveComReference.cache
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.exe
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.pdb
+E:\robot_project\Visual Studio Project\LineChart\LineChar\bin\Debug\LineChar.exe
+E:\robot_project\Visual Studio Project\LineChart\LineChar\bin\Debug\LineChar.pdb
+E:\robot_project\Visual Studio Project\LineChart\LineChar\bin\Debug\Microsoft.Office.Interop.Owc11.dll
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\ResolveAssemblyReference.cache
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.Form1.resources
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.Properties.Resources.resources
+E:\robot_project\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\obj\Debug\LineChar.csproj.ResolveComReference.cache
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\obj\Debug\LineChar.exe
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\obj\Debug\LineChar.pdb
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\obj\Debug\ResolveAssemblyReference.cache
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\obj\Debug\LineChar.Form1.resources
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\obj\Debug\LineChar.Properties.Resources.resources
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\bin\Debug\LineChar.exe
+E:\#robot_liyao\Visual Studio Project\LineChart - 副本\LineChar\bin\Debug\LineChar.pdb

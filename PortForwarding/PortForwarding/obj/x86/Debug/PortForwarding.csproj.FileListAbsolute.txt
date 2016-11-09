@@ -1,0 +1,16 @@
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\bin\Debug\PortForwarding.exe
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\bin\Debug\PortForwarding.pdb
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.Form1.resources
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.Properties.Resources.resources
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.csproj.GenerateResource.Cache
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.exe
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.pdb
+E:\资源(G：)\#个人项目\Visual Studio Project\PortForwarding\PortForwarding\bin\Debug\PortForwarding.exe.config
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\bin\Debug\PortForwarding.exe.config
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.exe
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.pdb
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\bin\Debug\PortForwarding.exe
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\bin\Debug\PortForwarding.pdb
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.Form1.resources
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.Properties.Resources.resources
+E:\资源\个人项目\Visual Studio Project\PortForwarding\PortForwarding\obj\x86\Debug\PortForwarding.csproj.GenerateResource.Cache
