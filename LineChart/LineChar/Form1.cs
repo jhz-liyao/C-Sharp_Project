@@ -35,7 +35,7 @@ namespace LineChar
         string serialPortCur = "";
 
         Queue serialData = new Queue();
-        byte[] lineData = new byte[512];
+        byte[] lineData = new byte[1024];
 
         byte tmpByte = 0, lastTmpByte = 0;
         int ind = 0;
@@ -43,61 +43,65 @@ namespace LineChar
 
         void flush()
         {
+            lc.grap_update(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox5.Text), float.Parse(textBox7.Text), int.Parse(textBox6.Text),int.Parse(textBox3.Text));
+            pictureBox1.Image = lc.flush();     
             
-            lc.grap_update(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox5.Text), float.Parse(textBox7.Text), int.Parse(textBox6.Text));
-            pictureBox1.Image = lc.flush(); 
         }
 
       
         public void flush_Line()
-        {
-            
-            while(true){
-                tmpByte = (byte)serialData.Dequeue();
-                lineData[ind++] = tmpByte;
-                if (lastTmpByte == '\r' && tmpByte == '\n')//取出队列中完整的一条记录
-                    break;
-                lastTmpByte = tmpByte;
-                if (serialData.Count == 0)//队列中未找到\r\n则退出
-                {
-                    m_IsReceiving = false; // 关键!!!
-                    return;
-                }
-            }
-            
-            try
+        { 
+            while (serialData.Count > 0)
             {
-                int channel = 0;
-                string dataStr = System.Text.Encoding.Default.GetString(lineData);
-                dataStr = dataStr.Substring(0, dataStr.IndexOf("\r\n"));
-                float minValue = 999999;
-                string[] value = dataStr.Split(new char[] { '\t' });
-
-                channel = value.Length;
-                textBox6.Text = channel.ToString();
-                for (int j = 0; j < channel; j++)
+                //textBox9.AppendText("\r\n" + serialData.Count.ToString());
+                while (true)
                 {
-                    if (float.Parse(value[j]) < minValue)
-                        minValue = float.Parse(value[j]);
-                    lc.put_data(float.Parse(value[j]), j);//, j
-                    textBox4.Text = value[j];//
-                    textBox8.Text = (lc.hisMaxValue - lc.hisMinValue).ToString();
+                    tmpByte = (byte)serialData.Dequeue();
+                    lineData[ind++] = tmpByte;
+                    if (lastTmpByte == '\r' && tmpByte == '\n')//取出队列中完整的一条记录
+                        break;
+                    lastTmpByte = tmpByte;
+                    if (serialData.Count == 0)//队列中未找到\r\n则退出
+                    {
+                        m_IsReceiving = false; // 关键!!!
+                        return;
+                    }
                 }
-                //初始化时自动查找合适的y轴初始坐标
-                if (textBox5.Text == "=")
-                {
-                    textBox5.Text = (minValue - float.Parse(textBox7.Text)).ToString();
-                }
-                pictureBox1.Image = lc.flush();
 
+                try
+                {
+                    int channel = 0;
+                    string dataStr = System.Text.Encoding.Default.GetString(lineData);
+                    dataStr = dataStr.Substring(0, dataStr.IndexOf("\r\n"));
+                    float minValue = 999999;
+                    string[] value = dataStr.Split(new char[] { '\t' });
+
+                    channel = value.Length;
+                    textBox6.Text = channel.ToString();
+                    for (int j = 0; j < channel; j++)
+                    {
+                        if (float.Parse(value[j]) < minValue)
+                            minValue = float.Parse(value[j]);
+                        lc.put_data(float.Parse(value[j]), j);//, j
+                        textBox4.Text = value[j];//
+                        textBox8.Text = (lc.hisMaxValue - lc.hisMinValue).ToString();
+                    }
+                    //初始化时自动查找合适的y轴初始坐标
+                    if (textBox5.Text == "=")
+                    {
+                        textBox5.Text = (minValue - float.Parse(textBox7.Text)).ToString();
+                    }
+                    pictureBox1.Image = lc.flush();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                ind = 0;
+                lineData = new byte[1024];
+                m_IsReceiving = false; // 关键!!!
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            ind = 0;
-            lineData = new byte[512];
-            m_IsReceiving = false; // 关键!!!
         }
         private void readSerialPort(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
@@ -105,11 +109,19 @@ namespace LineChar
             {
                 return;
             }
-           byte[] databuff = new byte[1024];
-           int res = sp.Read(databuff, 0, 1024);
-           for (int i = 0; i < res; i++) {
-               serialData.Enqueue(databuff[i]);
-           }
+            byte[] databuff = new byte[sp.BytesToRead];
+           //String str = sp.ReadExisting();
+           //databuff = System.Text.Encoding.Default.GetBytes(str);
+           // textBox9.AppendText("\n" + databuff.Length.ToString());
+            int res = sp.Read(databuff, 0, databuff.Length);
+            for (int i = 0; i < res; i++)
+            {
+                serialData.Enqueue(databuff[i]);
+            }
+           //for (int i = 0; i < databuff.Length; i++)
+           //{
+           //    serialData.Enqueue(databuff[i]);
+           //}
            this.Invoke(flush_LinePic);
         }
 
@@ -139,6 +151,7 @@ namespace LineChar
             pictureBox1.Height = Form1.ActiveForm.Size.Height - 130;
             textBox1.Text = pictureBox1.Width.ToString() ;
             textBox2.Text = pictureBox1.Height.ToString();
+            textBox3.Text = (Form1.ActiveForm.Size.Width / 10).ToString();
             flush();
         }
 
@@ -212,6 +225,11 @@ namespace LineChar
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

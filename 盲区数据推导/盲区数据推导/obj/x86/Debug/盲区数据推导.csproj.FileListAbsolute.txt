@@ -1,8 +1,0 @@
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\obj\x86\Debug\盲区数据推导.Form1.resources
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\obj\x86\Debug\盲区数据推导.Properties.Resources.resources
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\obj\x86\Debug\盲区数据推导.csproj.GenerateResource.Cache
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\bin\Debug\盲区数据推导.exe
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\bin\Debug\盲区数据推导.pdb
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\obj\x86\Debug\盲区数据推导.exe
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\obj\x86\Debug\盲区数据推导.pdb
-E:\资源(G：)\#个人项目\Visual Studio Project\盲区数据推导\盲区数据推导\盲区数据推导\obj\x86\Debug\盲区数据推导.csprojResolveAssemblyReference.cache

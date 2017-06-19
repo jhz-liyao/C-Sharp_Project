@@ -26,7 +26,7 @@ namespace LineChar
 
     public class LineCharLib
     {
-        const int DATASIZE = 50;
+        int DATASIZE = 500;
         //画图初始化
         Bitmap bmap;
         Graphics gph;
@@ -182,8 +182,9 @@ Brushes.YellowGreen };
            
         }
 
-        public void grap_update(int width, int height, int minY, float _scaleY, int _channel)
+        public void grap_update(int width, int height, int minY, float _scaleY, int _channel, int _DATASIZE)
         {
+            DATASIZE = _DATASIZE;
             grap_width = width;
             grap_height = height;
             MinY = minY;
