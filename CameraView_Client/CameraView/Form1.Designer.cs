@@ -61,7 +61,7 @@
             this.tb_localip.Name = "tb_localip";
             this.tb_localip.Size = new System.Drawing.Size(125, 21);
             this.tb_localip.TabIndex = 2;
-            this.tb_localip.Text = "192.168.15.60";
+            this.tb_localip.Text = "192.168.0.201";
             // 
             // tb_port
             // 

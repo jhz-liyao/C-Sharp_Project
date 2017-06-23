@@ -41,3 +41,27 @@ E:\#个人资料\Visual Studio Project\LineChart\LineChar\obj\Debug\ResGen.write
 G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csproj.ResolveComReference.cache
 G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.exe
 G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.pdb
+G:\#个人项目\Visual Studio Project\LineChart\LineChar\bin\Debug\LineChar.exe
+G:\#个人项目\Visual Studio Project\LineChart\LineChar\bin\Debug\LineChar.pdb
+G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csprojResolveAssemblyReference.cache
+G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.Form1.resources
+G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.Properties.Resources.resources
+G:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csprojResolveAssemblyReference.cache
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.exe
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.pdb
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\bin\Debug\LineChar.exe
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\bin\Debug\LineChar.pdb
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.Form1.resources
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.Properties.Resources.resources
+E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache
+D:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.exe
+D:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.pdb
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.exe
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.pdb
+D:\LiyaoProject\C#_Project\LineChart\LineChar\bin\Debug\LineChar.exe
+D:\LiyaoProject\C#_Project\LineChart\LineChar\bin\Debug\LineChar.pdb
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.csprojResolveAssemblyReference.cache
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.Form1.resources
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.Properties.Resources.resources
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache

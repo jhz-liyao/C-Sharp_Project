@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Collections;
 /*using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop;
 using Microsoft.Office.Interop.Owc11;*/
@@ -17,136 +18,137 @@ namespace LineChar
 
     public partial class Form1 : Form
     {
-
-        int com = 1;
-
         public Form1()
         {
             InitializeComponent();
         }
 
+        Random ran = new Random();
         SerialPort sp;
         LineCharLib lc = new LineCharLib();
-        bool isInit = true;
-        bool isPause = false;
+
+        delegate void Flush_LinePic();  //委托
+        Flush_LinePic flush_LinePic;
+        SerialDataReceivedEventHandler spHandler;
+        private bool m_IsTryToClosePort = false;
+        private bool m_IsReceiving = false;
+        string serialPortCur = "";
+        int FPS = 0;
+        Queue serialData = new Queue();
+        byte[] lineData = new byte[1024];
+
+        byte tmpByte = 0, lastTmpByte = 0;
+        int ind = 0;
+
 
         void flush()
         {
-            
-            lc.grap_update(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox5.Text), float.Parse(textBox7.Text), int.Parse(textBox6.Text));
-            pictureBox1.Image = lc.flush(); 
+            lc.grap_update(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox5.Text), float.Parse(textBox7.Text), int.Parse(textBox6.Text), int.Parse(textBox3.Text));
+            pictureBox1.Image = lc.flush();
+
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+
+        public void flush_Line()
         {
-            isInit = true;
-            button2.TabIndex = 0;
-            for (; com < comboBox1.Items.Count; com++)
+            while (serialData.Count > 0)
             {
-                comboBox1.SelectedIndex = com;
-                if (com == 0)
+                //textBox9.AppendText("\r\n" + serialData.Count.ToString());
+                while (true)
                 {
-                    break;
-                }
-            }
-            if (com != 0)
-            {
-                comboBox1.SelectedIndex = 0;
-                MessageBox.Show("没有找到可用的串口");
-            }
-            textBox1.Text = pictureBox1.Width.ToString();
-            textBox2.Text = pictureBox1.Height.ToString();
-            flush();
-            timer1.Interval = int.Parse(textBox3.Text);
-            isInit = false;
-           
-        }
+                    tmpByte = (byte)serialData.Dequeue();
+                    lineData[ind++] = tmpByte;
+                    if (lastTmpByte == '\r' && tmpByte == '\n')//取出队列中完整的一条记录
+                        break;
+                    if (tmpByte == '\v')
+                    {
+                        lc.clean_data();
+                    }
 
-        Random ran = new Random();
-       // byte[] dataBuffer = new byte[1024];
-        string[] datas;
-        string shengyu = "";
-        private void timer1_Tick(object sender, EventArgs e)
-        {
+                    lastTmpByte = tmpByte;
+                    if (serialData.Count == 0)//队列中未找到\r\n则退出
+                    {
+                        m_IsReceiving = false; // 关键!!!
+                        return;
+                    }
+                }
+
                 try
                 {
-                    //int data = sp.ReadByte();
-                    //string dataStr = sp.ReadLine(); 
-
                     int channel = 0;
-                    string dataStr = sp.ReadExisting();
-                    //sp.Read(dataBuffer, 0, 100);
-                   // string[] datas = dataBuffer.ToString().Split(new char[] { '\n' });
-                    
-                   //将\r\n转换为\n
-                    if (dataStr.IndexOf("\r\n", 0, dataStr.Length) > -1){
-                        dataStr = dataStr.Replace("\r\n","\n");
-                    }
-
-                    //连接上次截取的数据
-                    dataStr = shengyu + dataStr;
-
-                    //将最后\n后的数据截取保存
-                    int begin = 0;
-                    int last = dataStr.LastIndexOf('\n');
-                    if (dataStr.LastIndexOf('\n') != dataStr.Length)
-                    {
-                        if (last == -1)
-                        {
-                            shengyu = dataStr;
-                            return;
-                        }
-                        shengyu = dataStr.Substring(last, dataStr.Length - last);
-                    }
-
-                    //将首个\n到末个\n的数据截取
-                    begin = dataStr.IndexOf('\n', 0);
-                    last = dataStr.LastIndexOf('\n');
-
-                    if (begin == last)
-                        return;
-                    begin = begin + 1;//去掉最前面的\n
-                    dataStr = dataStr.Substring(begin, last-begin);
-
-                    datas = dataStr.Split(new char[] { '\n' });
-                    channel = datas[0].Split(new char[] { '\t' }).Length;
-                    textBox6.Text = channel.ToString();
-                    string[,] channelData = new string[channel, datas.Length];
+                    string dataStr = System.Text.Encoding.Default.GetString(lineData);
+                    dataStr = dataStr.Substring(0, dataStr.IndexOf("\r\n"));
                     float minValue = 999999;
-                    for (int i = 0; i < datas.Length; i++)
+                    string[] value = dataStr.Split(new char[] { '\t' });
+
+                    channel = value.Length;
+                    textBox6.Text = channel.ToString();
+                    for (int j = 0; j < channel; j++)
                     {
-                        string[] value = datas[i].Split(new char[] { '\t' });
-                        for (int j = 0; j < channel; j++)
-                        {
-                            if (float.Parse(value[j]) < minValue)
-                                minValue = float.Parse(value[j]);
-                            lc.put_data(float.Parse(value[j]),j);//, j
-                            textBox4.Text = value[j];//datas[i];
-                            textBox8.Text = (lc.hisMaxValue - lc.hisMinValue).ToString();
-                        }
+                        if (float.Parse(value[j]) < minValue)
+                            minValue = float.Parse(value[j]);
+                        lc.put_data(float.Parse(value[j]), j);//, j
+                        textBox4.Text = value[j];//
+                        textBox8.Text = (lc.hisMaxValue - lc.hisMinValue).ToString();
                     }
-                    /*
-                    datas = dataStr.Split(new char[] { '\n' });
-                    for (int i = 0; i < datas.Length; i++)
-                    {
-                        // int RandKey = ran.Next(-100,100);
-                        lc.put_data(float.Parse(datas[i]));
-                        textBox4.Text = datas[i];
-                        
-                    }*/
                     //初始化时自动查找合适的y轴初始坐标
                     if (textBox5.Text == "=")
                     {
                         textBox5.Text = (minValue - float.Parse(textBox7.Text)).ToString();
                     }
+                    FPS++;
                     pictureBox1.Image = lc.flush();
 
-              }
-              catch (Exception ex)
-              {
-                  //MessageBox.Show(ex.Message);
-              }
-           // }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                ind = 0;
+                lineData = new byte[1024];
+                m_IsReceiving = false; // 关键!!!
+            }
+        }
+        private void readSerialPort(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            if (m_IsTryToClosePort) // 关键！！！
+            {
+                return;
+            }
+            byte[] databuff = new byte[sp.BytesToRead];
+            //String str = sp.ReadExisting();
+            //databuff = System.Text.Encoding.Default.GetBytes(str);
+            // textBox9.AppendText("\n" + databuff.Length.ToString());
+            int res = sp.Read(databuff, 0, databuff.Length);
+            for (int i = 0; i < res; i++)
+            {
+                serialData.Enqueue(databuff[i]);
+            }
+            //for (int i = 0; i < databuff.Length; i++)
+            //{
+            //    serialData.Enqueue(databuff[i]);
+            this.Invoke(flush_LinePic);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            button2.TabIndex = 0;
+            for (int i = 0; i < 30; i++)
+            {
+                try
+                {
+                    sp = new SerialPort("COM" + i, 115200, 0, 8, StopBits.One);
+                    sp.Open();
+                    comboBox1.Items.Add("COM" + i);
+                    sp.Close();
+                }
+                catch (Exception ex) { }
+            }
+            comboBox1.SelectedIndex = 0;
+            textBox1.Text = pictureBox1.Width.ToString();
+            textBox2.Text = pictureBox1.Height.ToString();
+            flush();
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -155,108 +157,34 @@ namespace LineChar
                 return;
             pictureBox1.Width = Form1.ActiveForm.Size.Width - 20;
             pictureBox1.Height = Form1.ActiveForm.Size.Height - 130;
-            textBox1.Text = pictureBox1.Width.ToString() ;
+            textBox1.Text = pictureBox1.Width.ToString();
             textBox2.Text = pictureBox1.Height.ToString();
+            textBox3.Text = (Form1.ActiveForm.Size.Width / 10).ToString();
             flush();
         }
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 float.Parse(textBox5.Text);
                 flush();
-            }catch(Exception ex){
+            }
+            catch (Exception ex)
+            {
                 ex = null;
             }
-            
+
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if(float.Parse(textBox7.Text)>0)
-                flush();
+                if (float.Parse(textBox7.Text) > 0)
+                    flush();
             }
-            catch (Exception ex)
-            {
-                ex = null;
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (isPause)
-            {
-                isPause = false;
-                button2.Text = "开始";
-                timer1.Stop();
-                
-            }
-            else {
-                sp.DiscardInBuffer();
-                isPause = true;
-                button2.Text = "暂停";
-                timer1.Start();
-
-            }
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                timer1.Interval = int.Parse(textBox3.Text);
-            }
-            catch (Exception ex)
-            {
-                ex = null;
-            }
-        }
-
-        delegate void Flush_textbox(string text);  //委托
-        Flush_textbox updateText;
-
-        public void flush_textbox(string line_value)
-        {
-            textBox1.AppendText(line_value);
-            //textBox1.Focus();
-            textBox1.Select(textBox1.TextLength, 0);
-            textBox1.ScrollToCaret();
-        }
-
-        private void readSerialPort(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            byte[] databuff = new byte[1024];
-            //byte[] str = Encoding.ASCII.GetBytes(sp.ReadExisting());
-            // str = Encoding.Convert(Encoding.ASCII, Encoding.UTF8, str);
-            //flush_textbox(Encoding.UTF8.GetString());
-
-            //byte[] byteArray = Encoding.GetEncoding("UTF-8").GetBytes(sp.ReadExisting()); 
-            int rectLen = sp.BytesToRead;
-            sp.Read(databuff, 0, rectLen);
-            if (isPause == 0)
-            {
-
-                this.Invoke(updateText, new string[] { Encoding.GetEncoding("GBK").GetString(databuff, 0, rectLen) });
-            }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                sp = new SerialPort(comboBox1.Text, 115200, Parity.None, 8, StopBits.One);
-                sp.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(readSerialPort);
-                sp.Open();
-                //sp.ReadTimeout = 1;
-                com = 0;
-            }
-            catch (System.Exception ex)
-            {
-                if(!isInit)
-                    MessageBox.Show("当前串口不可用");
-            }
+            catch (Exception ex) { }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -269,19 +197,64 @@ namespace LineChar
         {
             try
             {
-                if(float.Parse(textBox6.Text)<1)
+                if (float.Parse(textBox6.Text) < 1)
                     throw new Exception();
                 flush();
             }
-            catch (Exception ex)
+            catch (Exception ex) { }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if ("".Equals(serialPortCur))
             {
-                ex = null;
+                try
+                {
+                    if (sp.IsOpen)
+                        sp.Close();
+                    m_IsTryToClosePort = false;
+                    sp = new SerialPort(comboBox1.Text, 115200, 0, 8, StopBits.One);
+                    //sp.ReceivedBytesThreshold = 100;
+                    sp.Open();
+                    spHandler = new SerialDataReceivedEventHandler(readSerialPort);
+                    sp.DataReceived += spHandler;
+                    flush_LinePic = new Flush_LinePic(flush_Line);  //实例化委托对象
+                    button2.Text = "关闭串口";
+                    serialPortCur = comboBox1.Text;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("打开串口失败！");
+                }
+
+            }
+            else
+            {
+                button2.Text = "打开串口";
+                serialPortCur = "";
+                try
+                {
+                    m_IsTryToClosePort = true;
+                    while (m_IsReceiving)
+                    {
+                        System.Windows.Forms.Application.DoEvents();
+                    }
+
+                    sp.Close();
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            textBox9.Text = FPS.ToString();
+            FPS = 0;
         }
     }
 }

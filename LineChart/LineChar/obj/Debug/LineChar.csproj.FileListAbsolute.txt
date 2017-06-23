@@ -57,11 +57,11 @@ E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug
 E:\资源(G：)\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache
 D:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.exe
 D:\#个人项目\Visual Studio Project\LineChart\LineChar\obj\Debug\LineChar.pdb
-D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.exe
-D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.pdb
-D:\LiyaoProject\C#_Project\LineChart\LineChar\bin\Debug\LineChar.exe
-D:\LiyaoProject\C#_Project\LineChart\LineChar\bin\Debug\LineChar.pdb
 D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.csprojResolveAssemblyReference.cache
 D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.Form1.resources
 D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.Properties.Resources.resources
 D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\LineChar.csproj.GenerateResource.Cache
+D:\LiyaoProject\C#_Project\LineChart\LineChar\bin\Debug\数据图表.exe
+D:\LiyaoProject\C#_Project\LineChart\LineChar\bin\Debug\数据图表.pdb
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\数据图表.exe
+D:\LiyaoProject\C#_Project\LineChart\LineChar\obj\Debug\数据图表.pdb

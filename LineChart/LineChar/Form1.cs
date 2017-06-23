@@ -22,7 +22,7 @@ namespace LineChar
         {
             InitializeComponent();
         }
-        
+
         Random ran = new Random();
         SerialPort sp;
         LineCharLib lc = new LineCharLib();
@@ -33,7 +33,8 @@ namespace LineChar
         private bool m_IsTryToClosePort = false;
         private bool m_IsReceiving = false;
         string serialPortCur = "";
-
+        int FPS = 0;
+        bool refreshRequestFlag = false;
         Queue serialData = new Queue();
         byte[] lineData = new byte[1024];
 
@@ -43,14 +44,23 @@ namespace LineChar
 
         void flush()
         {
-            lc.grap_update(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox5.Text), float.Parse(textBox7.Text), int.Parse(textBox6.Text),int.Parse(textBox3.Text));
-            pictureBox1.Image = lc.flush();     
-            
+            ConfigVO configVO = new ConfigVO();
+            configVO.grap_width = int.Parse(grap_widthBox.Text);
+            configVO.grap_height = int.Parse(grap_heightBox.Text);
+            configVO.minY = int.Parse(minYBox.Text);
+            configVO.scaleX = float.Parse(scaleXBox.Text);
+            configVO.scaleY = float.Parse(scaleYBox.Text);
+            configVO.channelNum = int.Parse(channelNumBox.Text);
+            configVO.datasize = int.Parse(datasizeBox.Text);
+            configVO.max_min_flag = CB_max_min_flag.Checked;
+            lc.grap_update(configVO);
+            pictureBox1.Image = lc.flush();
+
         }
 
-      
+
         public void flush_Line()
-        { 
+        {
             while (serialData.Count > 0)
             {
                 //textBox9.AppendText("\r\n" + serialData.Count.ToString());
@@ -60,6 +70,11 @@ namespace LineChar
                     lineData[ind++] = tmpByte;
                     if (lastTmpByte == '\r' && tmpByte == '\n')//取出队列中完整的一条记录
                         break;
+                    if (tmpByte == '\v')
+                    {
+                        lc.clean_data();
+                    }
+
                     lastTmpByte = tmpByte;
                     if (serialData.Count == 0)//队列中未找到\r\n则退出
                     {
@@ -77,31 +92,35 @@ namespace LineChar
                     string[] value = dataStr.Split(new char[] { '\t' });
 
                     channel = value.Length;
-                    textBox6.Text = channel.ToString();
+                    channelNumBox.Text = channel.ToString();
                     for (int j = 0; j < channel; j++)
                     {
                         if (float.Parse(value[j]) < minValue)
                             minValue = float.Parse(value[j]);
                         lc.put_data(float.Parse(value[j]), j);//, j
-                        textBox4.Text = value[j];//
+                        //tb_console.Text = value[j];//
                         textBox8.Text = (lc.hisMaxValue - lc.hisMinValue).ToString();
                     }
                     //初始化时自动查找合适的y轴初始坐标
-                    if (textBox5.Text == "=")
+                    if (minYBox.Text == "=")
                     {
-                        textBox5.Text = (minValue - float.Parse(textBox7.Text)).ToString();
+                        minYBox.Text = (minValue - float.Parse(scaleYBox.Text)).ToString();
                     }
-                    pictureBox1.Image = lc.flush();
+                    refreshRequestFlag = true;
+                    //FPS++;
+                    //pictureBox1.Image = lc.flush();
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    tb_console.AppendText(Encoding.GetEncoding("GBK").GetString(lineData, 0, ind)); 
+                    
+                    //MessageBox.Show(ex.Message);
                 }
                 ind = 0;
                 lineData = new byte[1024];
-                m_IsReceiving = false; // 关键!!!
             }
+            m_IsReceiving = false; // 关键!!!
         }
         private void readSerialPort(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
@@ -110,100 +129,132 @@ namespace LineChar
                 return;
             }
             byte[] databuff = new byte[sp.BytesToRead];
-           //String str = sp.ReadExisting();
-           //databuff = System.Text.Encoding.Default.GetBytes(str);
-           // textBox9.AppendText("\n" + databuff.Length.ToString());
+            //String str = sp.ReadExisting();
+            //databuff = System.Text.Encoding.Default.GetBytes(str);
+            // textBox9.AppendText("\n" + databuff.Length.ToString());
             int res = sp.Read(databuff, 0, databuff.Length);
             for (int i = 0; i < res; i++)
             {
                 serialData.Enqueue(databuff[i]);
             }
-           //for (int i = 0; i < databuff.Length; i++)
-           //{
-           //    serialData.Enqueue(databuff[i]);
-           //}
-           this.Invoke(flush_LinePic);
+            //for (int i = 0; i < databuff.Length; i++)
+            //{
+            //    serialData.Enqueue(databuff[i]);
+            this.Invoke(flush_LinePic);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-            button2.TabIndex = 0;
-            for (int i = 0; i < 30; i++){
-                try{
+
+            btn_open.TabIndex = 0;
+            for (int i = 0; i < 30; i++)
+            {
+                try
+                {
                     sp = new SerialPort("COM" + i, 115200, 0, 8, StopBits.One);
                     sp.Open();
                     comboBox1.Items.Add("COM" + i);
                     sp.Close();
-                }catch (Exception ex) { }
+                }
+                catch (Exception ex) { }
             }
             comboBox1.SelectedIndex = 0;
-            textBox1.Text = pictureBox1.Width.ToString();
-            textBox2.Text = pictureBox1.Height.ToString();
+
+            minYBox.Text = ConfigUtil.GetValue("minY") == null ? "0" : ConfigUtil.GetValue("minY");
+            scaleXBox.Text = ConfigUtil.GetValue("scaleX") == null ? "1" : ConfigUtil.GetValue("scaleX");
+            scaleYBox.Text = ConfigUtil.GetValue("scaleY") == null ? "1" : ConfigUtil.GetValue("scaleY");
+            datasizeBox.Text = ConfigUtil.GetValue("datasize") == null ? "1024" : ConfigUtil.GetValue("datasize");
+             
+            grap_widthBox.Text = pictureBox1.Width.ToString();
+            grap_heightBox.Text = pictureBox1.Height.ToString();  
             flush();
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            if (Form1.ActiveForm.Size.Width < 200 || Form1.ActiveForm.Size.Height < 200)
-                return;
-            pictureBox1.Width = Form1.ActiveForm.Size.Width - 20;
-            pictureBox1.Height = Form1.ActiveForm.Size.Height - 130;
-            textBox1.Text = pictureBox1.Width.ToString() ;
-            textBox2.Text = pictureBox1.Height.ToString();
-            textBox3.Text = (Form1.ActiveForm.Size.Width / 10).ToString();
-            flush();
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-            try {
-                float.Parse(textBox5.Text);
+            try
+            {
+                if (Form1.ActiveForm.Size.Width < 200 || Form1.ActiveForm.Size.Height < 200)
+                    return;
+                pictureBox1.Width = Form1.ActiveForm.Size.Width - 20;
+                pictureBox1.Height = Form1.ActiveForm.Size.Height - 130;
+                grap_widthBox.Text = pictureBox1.Width.ToString();
+                grap_heightBox.Text = pictureBox1.Height.ToString();
+                //textBox3.Text = (Form1.ActiveForm.Size.Width / 10).ToString();
                 flush();
-            }catch(Exception ex){
-                ex = null;
             }
-            
+            catch (Exception ex)
+            {
+            }
         }
 
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-            try{
-                if(float.Parse(textBox7.Text)>0)
-                flush();
-            }catch (Exception ex){ }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            lc.dataArrayIndex = 0;
-            flush();
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
+        private void minYBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if(float.Parse(textBox6.Text)<1)
-                    throw new Exception();
+                float.Parse(minYBox.Text);
                 flush();
-            } catch (Exception ex){ }
+            }
+            catch (Exception ex)
+            {
+                ex = null;
+            }
+
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void scaleYBox_TextChanged(object sender, EventArgs e)
         {
-             if ("".Equals(serialPortCur)){
+            try
+            {
+                if (float.Parse(scaleYBox.Text) > 0)
+                    flush();
+            }
+            catch (Exception ex) { }
+        }
+        private void scaleXBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (float.Parse(scaleXBox.Text) > 0)
+                    flush();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void btn_clean_Click(object sender, EventArgs e)
+        {
+            lc.dataArrayIndex = 0;
+            tb_console.Clear();
+            flush();
+        }
+
+        private void channelNumBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (float.Parse(channelNumBox.Text) < 1)
+                    throw new Exception();
+                flush();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void btn_open_Click(object sender, EventArgs e)
+        {
+            if ("".Equals(serialPortCur))
+            {
                 try
                 {
                     if (sp.IsOpen)
                         sp.Close();
                     m_IsTryToClosePort = false;
                     sp = new SerialPort(comboBox1.Text, 115200, 0, 8, StopBits.One);
+                    //sp.ReceivedBytesThreshold = 100;
                     sp.Open();
                     spHandler = new SerialDataReceivedEventHandler(readSerialPort);
                     sp.DataReceived += spHandler;
                     flush_LinePic = new Flush_LinePic(flush_Line);  //实例化委托对象
-                    button2.Text = "关闭串口";
+                    btn_open.Text = "关闭串口";
                     serialPortCur = comboBox1.Text;
                 }
                 catch (Exception ex)
@@ -211,13 +262,16 @@ namespace LineChar
                     MessageBox.Show("打开串口失败！");
                 }
 
-            }else{
-                button2.Text = "打开串口";
+            }
+            else
+            {
+                btn_open.Text = "打开串口";
                 serialPortCur = "";
                 try
                 {
                     m_IsTryToClosePort = true;
-                    while (m_IsReceiving){
+                    while (m_IsReceiving)
+                    {
                         System.Windows.Forms.Application.DoEvents();
                     }
 
@@ -227,9 +281,40 @@ namespace LineChar
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-
+            FPS_Box.Text = FPS.ToString();
+            FPS = 0;
         }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (refreshRequestFlag)
+            {
+                FPS++;
+                pictureBox1.Image = lc.flush();
+                refreshRequestFlag = false;
+            }
+        }
+
+        private void CB_max_min_flag_CheckedChanged(object sender, EventArgs e)
+        {
+            flush();
+        }
+
+        private void lb_help_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("数据格式：\\t分割通道\n\t \\r\\n一条数据结尾\n\t \\v清屏");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ConfigUtil.SetValue("minY",minYBox.Text);
+            ConfigUtil.SetValue("scaleX",scaleXBox.Text);
+            ConfigUtil.SetValue("scaleY",scaleYBox.Text);
+            ConfigUtil.SetValue("datasize", datasizeBox.Text);
+            ConfigUtil.Save();
+        }
+
     }
 }

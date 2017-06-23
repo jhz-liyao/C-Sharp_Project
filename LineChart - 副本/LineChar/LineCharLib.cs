@@ -26,7 +26,7 @@ namespace LineChar
 
     public class LineCharLib
     {
-        const int DATASIZE = 50;
+        int DATASIZE = 500;
         //画图初始化
         Bitmap bmap;
         Graphics gph;
@@ -182,8 +182,9 @@ Brushes.YellowGreen };
            
         }
 
-        public void grap_update(int width, int height, int minY, float _scaleY, int _channel)
+        public void grap_update(int width, int height, int minY, float _scaleY, int _channel, int _DATASIZE)
         {
+            DATASIZE = _DATASIZE;
             grap_width = width;
             grap_height = height;
             MinY = minY;
@@ -242,6 +243,12 @@ Brushes.YellowGreen };
                     hisMinValue = curMinValue;
 
             }
+        }
+
+        public void clean_data() {
+            dataArrayIndex = 0;
+            curMaxValue = 0;//当前最大值
+            curMinValue = 0;//当前最小值
         }
         public Bitmap flush()
         {
@@ -306,7 +313,7 @@ Brushes.YellowGreen };
             {//show_color.X = show_color.X + (j * 100);
                 show_color.X =  (j * 100)+10;
                 gph.DrawString("通道" + (j + 1).ToString() + ":", new Font("宋体", 10), Brushes.Black,show_color);
-                gph.DrawLine(new Pen(dataColor[j], 3), show_color.X + 44, show_color.Y + 7, show_color.X + 80, show_color.Y + 7);
+                gph.DrawLine(new Pen(dataColor[j], 1.5f), show_color.X + 44, show_color.Y + 7, show_color.X + 80, show_color.Y + 7);
                 for (int i = 1; i < dataArrayIndex; i++)
                 {
                     //画点
@@ -320,7 +327,7 @@ Brushes.YellowGreen };
                     if (i > 1)
                     {
                         PointF last = new PointF(left_down.X + (i - 1) * spaceX, left_down.Y - (dataArray[j,(i - 2)] - MinY) * step);//当前值所处坐标
-                        gph.DrawLine(new Pen(dataColor[j], 3), last.X, last.Y, cur.X+1, cur.Y);
+                        gph.DrawLine(new Pen(dataColor[j], 1.5f), last.X, last.Y, cur.X+1, cur.Y);
                     }
                 }
             }

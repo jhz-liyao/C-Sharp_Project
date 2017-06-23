@@ -57,3 +57,6 @@ D:\#个人项目\Visual Studio Project\ControlRobot\ControlRobot\obj\x86\Debug\C
 E:\资源\个人项目\Visual Studio Project\ControlRobot\ControlRobot\bin\Debug\ControlRobot.exe.config
 E:\资源\个人项目\Visual Studio Project\ControlRobot\ControlRobot\obj\x86\Debug\ControlRobot.exe
 E:\资源\个人项目\Visual Studio Project\ControlRobot\ControlRobot\obj\x86\Debug\ControlRobot.pdb
+D:\LiyaoProject\C#_Project\ControlRobot\ControlRobot\bin\Debug\ControlRobot.exe.config
+D:\LiyaoProject\C#_Project\ControlRobot\ControlRobot\obj\x86\Debug\ControlRobot.exe
+D:\LiyaoProject\C#_Project\ControlRobot\ControlRobot\obj\x86\Debug\ControlRobot.pdb

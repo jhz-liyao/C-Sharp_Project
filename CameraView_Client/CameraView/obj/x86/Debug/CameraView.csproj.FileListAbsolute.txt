@@ -22,3 +22,11 @@ E:\资源(G：)\#个人项目\Visual Studio Project\CameraView_Client\CameraView
 E:\资源(G：)\#个人项目\Visual Studio Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.Form1.resources
 E:\资源(G：)\#个人项目\Visual Studio Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.Properties.Resources.resources
 E:\资源(G：)\#个人项目\Visual Studio Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.csproj.GenerateResource.Cache
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.exe
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.pdb
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\bin\Debug\CameraView.exe
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\bin\Debug\CameraView.pdb
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.csprojResolveAssemblyReference.cache
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.Form1.resources
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.Properties.Resources.resources
+D:\LiyaoProject\C#_Project\CameraView_Client\CameraView\obj\x86\Debug\CameraView.csproj.GenerateResource.Cache

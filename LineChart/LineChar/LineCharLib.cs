@@ -26,23 +26,19 @@ namespace LineChar
 
     public class LineCharLib
     {
-        int DATASIZE = 500;
+        ConfigVO configVO = null;
         //画图初始化
         Bitmap bmap;
         Graphics gph;
 
-        int grap_width = 500;       //画布宽
-        int grap_height = 500;      //画布高
-
-
-        int MinY = 0;       //Y轴起始值，可以是负数
-        float scaleY = 0;   //Y轴刻度最小单位  可以是0.1
         int spaceY = 20;     //Y轴刻度间距 一般固定为20 框体拉长显示更多范围
-        int spaceX = 0;     //X轴刻度间距 一般根据框体大小 框体拉长则拉长间隔
-        int maxCount = 0;   //最大刻度个数
-        float step = 0;     //数值对应的step个像素点
+        int spaceX = 20;     //X轴刻度间距 一般根据框体大小 框体拉长则拉长间隔
+        int maxCountX = 0;   //最大刻度个数
+        int maxCountY = 0;   //最大刻度个数
+
+        float stepY = 0;     //数值对应的step个像素点
+        float stepX = 0;     //数值对应的step个像素点
         public int dataArrayIndex = 0;
-        int channelNum;
 
         float curMaxValue = 0;//当前最大值
         float curMinValue = 0;//当前最小值
@@ -182,78 +178,83 @@ Brushes.YellowGreen };
            
         }
 
-        public void grap_update(int width, int height, int minY, float _scaleY, int _channel, int _DATASIZE)
+        public void grap_update(ConfigVO _configVO)
         {
-            DATASIZE = _DATASIZE;
-            grap_width = width;
-            grap_height = height;
-            MinY = minY;
-            scaleY = _scaleY;
-            spaceX = (grap_width - 100) / DATASIZE;
-           
-            step = spaceY / scaleY;
-            bmap = new Bitmap(grap_width, grap_height);
+            configVO = _configVO;
+            stepX = spaceX / configVO.scaleX;
+            stepY = spaceY / configVO.scaleY;
+            bmap = new Bitmap(configVO.grap_width, configVO.grap_height);
             gph = Graphics.FromImage(bmap);
-            maxCount = (grap_height - 100) / spaceY;
-            channelNum = _channel;
-            dataArray = new float[channelNum, DATASIZE];//数据
+            maxCountX = (configVO.grap_width - 100) / spaceX;
+            maxCountY = (configVO.grap_height - 100) / spaceY;
+            dataArray = new float[configVO.channelNum, configVO.datasize];//数据
         }
 
         public void put_data(float data,int channel) {
-            if (dataArrayIndex == 0)
-            {
-                 hisMaxValue = 0;
-                 hisMinValue = 9999999;
-            }
+            
 
-            if (dataArrayIndex < DATASIZE)
+            if (dataArrayIndex < configVO.datasize)//缓冲区未满赋值
             {
                 dataArray[channel,dataArrayIndex] = data;
             }
-            else
+            else//缓冲区已满顶出
             {
-               
-                for (int i = 0; i < DATASIZE - 1;i++ )
+                for (int i = 0; i < configVO.datasize - 1;i++ )
                 {
                     dataArray[channel, i] = dataArray[channel,i + 1];
                 }
-                dataArray[channel,DATASIZE - 1] = data;
+                dataArray[channel,configVO.datasize - 1] = data;
              }
-
-            if (channel == channelNum - 1)
+            if (channel == configVO.channelNum - 1)
             {
-                if (dataArrayIndex < DATASIZE)
+                if (dataArrayIndex < configVO.datasize)
                     dataArrayIndex++;
-                curMaxValue = 0;
-                curMinValue = 9999999;
-                for (int j = 0; j < channelNum; j++)
+            }
+            if (configVO.max_min_flag == true)//统计最大最小值
+            {
+                if (dataArrayIndex == 0)
                 {
-                    for (int i = 0; i < dataArrayIndex - 1; i++)
-                    {
-                        if (dataArray[j, i] > curMaxValue)
-                            curMaxValue = dataArray[j, i];
-                        if (dataArray[j, i] < curMinValue)
-                            curMinValue = dataArray[j, i];
-                    }
+                    hisMaxValue = 0;
+                    hisMinValue = 9999999;
                 }
 
-                if (curMaxValue > hisMaxValue)
-                    hisMaxValue = curMaxValue;
-                if (curMinValue < hisMinValue)
-                    hisMinValue = curMinValue;
+                if (channel == configVO.channelNum - 1)
+                {
+                    curMaxValue = 0;
+                    curMinValue = 9999999;
+                    for (int j = 0; j < configVO.channelNum; j++)
+                    {
+                        for (int i = 0; i < dataArrayIndex - 1; i++)
+                        {
+                            if (dataArray[j, i] > curMaxValue)
+                                curMaxValue = dataArray[j, i];
+                            if (dataArray[j, i] < curMinValue)
+                                curMinValue = dataArray[j, i];
+                        }
+                    }
 
+                    if (curMaxValue > hisMaxValue)
+                        hisMaxValue = curMaxValue;
+                    if (curMinValue < hisMinValue)
+                        hisMinValue = curMinValue;
+
+                }
             }
+        }
+
+        public void clean_data() {
+            dataArrayIndex = 0;
+            curMaxValue = 0;//当前最大值
+            curMinValue = 0;//当前最小值
         }
         public Bitmap flush()
         {
-
-
             gph.Clear(Color.LightGray);
 
-            PointF left_down = new PointF(50, grap_height - 40);//左下
+            PointF left_down = new PointF(50, configVO.grap_height - 40);//左下
             PointF left_up = new PointF(50, 50);//左上
-            PointF right_down = new PointF(grap_width - 40, grap_height - 40);//右下
-            PointF right_up = new PointF(grap_width - 40, 40);//右上
+            PointF right_down = new PointF(configVO.grap_width - 40, configVO.grap_height - 40);//右下
+            PointF right_up = new PointF(configVO.grap_width - 40, 40);//右上
 
             /* PointF sou = new PointF(40,400);//右下
 
@@ -278,55 +279,59 @@ Brushes.YellowGreen };
             gph.FillPolygon(new SolidBrush(Color.Black), ypt);
             //gph.DrawString("单位(万)", new Font("宋体", 12), Brushes.Black, new PointF(0, 7));
 
-            for (int i = 1; i <= maxCount; i++)
+            for (int i = 1; i <= maxCountY; i++)//画y轴刻度
             {
-                //画y轴刻度
-                gph.DrawString((MinY + i * scaleY).ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X - 40, left_down.Y - i * spaceY - 6));
-                gph.DrawLine(Pens.Olive, left_down.X - 3, left_down.Y - i * spaceY, grap_width - 40, left_down.Y - i * spaceY);
-
-
-                //画x轴项目
-                // gph.DrawString(month[i - 1].Substring(0, 1), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + i * 30 - 5, left_down.Y + 5));
-                // gph.DrawString(month[i - 1].Substring(1, 1), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + i * 30 - 5, left_down.Y + 20));
-                // if (month[i - 1].Length > 2) gph.DrawString(month[i - 1].Substring(2, 1), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + i * 30 - 5, left_down.Y + 35));  
+                gph.DrawString((configVO.minY + i * configVO.scaleY).ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X - 40, left_down.Y - i * spaceY - 6));
+                gph.DrawLine(Pens.Olive, left_down.X - 3, left_down.Y - i * spaceY, configVO.grap_width - 40, left_down.Y - i * spaceY);
             }
-            
-            //画当前最大值、最小值   历史最大值最小值
-            gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMaxValue - MinY) * step, right_down.X, right_down.Y - (curMaxValue - MinY) * step);
-            gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMinValue - MinY) * step, right_down.X, right_down.Y - (curMinValue - MinY) * step);
-           
-            gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (hisMaxValue - MinY) * step, right_down.X, right_down.Y - (hisMaxValue - MinY) * step);
-            gph.DrawString("最大值：" + hisMaxValue.ToString(), new Font("宋体", 12), Brushes.Black, new PointF(left_down.X + 40, right_down.Y - (hisMaxValue - MinY) * step - 20));
-            gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (hisMinValue - MinY) * step, right_down.X, right_down.Y - (hisMinValue - MinY) * step);
-            gph.DrawString("最小值：" + hisMinValue.ToString(), new Font("宋体", 12), Brushes.Black, new PointF(left_down.X + 40, right_down.Y - (hisMinValue - MinY) * step + 10));
+            StringFormat strF = new StringFormat(StringFormatFlags.DirectionVertical);
+
+            for (int i = 1; i <= maxCountX; i++)//画x轴刻度
+            {
+                gph.DrawString((i * configVO.scaleX).ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + (i - 1 ) * spaceX - 6, left_down.Y), strF);
+                gph.DrawLine(Pens.Olive, left_down.X + (i) * spaceX, left_down.X + 3, left_down.X + (i) * spaceX, configVO.grap_height - 40 );
+            }
 
 
+            if (configVO.max_min_flag == true)
+            {
+                //画当前最大值、最小值   历史最大值最小值
+                gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMaxValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMaxValue - configVO.minY) * stepY);
+                gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMinValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMinValue - configVO.minY) * stepY);
+
+                gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (hisMaxValue - configVO.minY) * stepY, right_down.X, right_down.Y - (hisMaxValue - configVO.minY) * stepY);
+                gph.DrawString("最大值：" + hisMaxValue.ToString(), new Font("宋体", 12), Brushes.Black, new PointF(left_down.X + 40, right_down.Y - (hisMaxValue - configVO.minY) * stepY - 20));
+                if (hisMinValue > 0)
+                    gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (hisMinValue - configVO.minY) * stepY, right_down.X, right_down.Y - (hisMinValue - configVO.minY) * stepY);
+                gph.DrawString("最小值：" + hisMinValue.ToString(), new Font("宋体", 12), Brushes.Black, new PointF(left_down.X + 40, right_down.Y - (hisMinValue - configVO.minY) * stepY + 10));
+            }
 
             PointF show_color = new PointF(0,10);//左上
-            for (int j = 0; j < channelNum; j++)
+            for (int j = 0; j < configVO.channelNum; j++)
             {//show_color.X = show_color.X + (j * 100);
                 show_color.X =  (j * 100)+10;
                 gph.DrawString("通道" + (j + 1).ToString() + ":", new Font("宋体", 10), Brushes.Black,show_color);
-                gph.DrawLine(new Pen(dataColor[j], 3), show_color.X + 44, show_color.Y + 7, show_color.X + 80, show_color.Y + 7);
-                for (int i = 1; i < dataArrayIndex; i++)
+                gph.DrawLine(new Pen(dataColor[j], 3f), show_color.X + 44, show_color.Y + 7, show_color.X + 80, show_color.Y + 7);
+                for (int i = 0; i < dataArrayIndex; i++)
                 {
+
                     //画点
-                    //PointF cur = new PointF(left_down.X + i * spaceX - 1.5f, left_down.Y - (dataArray[j,(i - 1)] - MinY) * step - 1.5f);//当前值所处坐标
-                    PointF cur = new PointF(left_down.X + i * spaceX, left_down.Y - (dataArray[j, (i - 1)] - MinY) * step);//当前值所处坐标
+                    //PointF cur = new PointF(left_down.X + i * spaceX - 1.5f, left_down.Y - (dataArray[j,(i - 1)] - configVO.minY) * step - 1.5f);//当前值所处坐标
+                    PointF cur = new PointF(left_down.X + (i) * stepX, left_down.Y - (dataArray[j, i] - configVO.minY) * stepY);//当前值所处坐标
                     //gph.DrawEllipse(new Pen(dataColor[j], 3), cur.X, cur.Y, 1, 1);
                    // gph.FillEllipse(new SolidBrush(Color.Black), cur.X, cur.Y, 3, 3);
                     //画数值
                     //gph.DrawString(d[i - 1].ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + i * 30, left_down.Y - d[i - 1] * 3));
                     //画折线
-                    if (i > 1)
+                    if (i > 0)
                     {
-                        PointF last = new PointF(left_down.X + (i - 1) * spaceX, left_down.Y - (dataArray[j,(i - 2)] - MinY) * step);//当前值所处坐标
-                        gph.DrawLine(new Pen(dataColor[j], 3), last.X, last.Y, cur.X+1, cur.Y);
+                        PointF last = new PointF(left_down.X + (i - 1) * stepX, left_down.Y - (dataArray[j, (i - 1)] - configVO.minY) * stepY);//当前值所处坐标
+                        gph.DrawLine(new Pen(dataColor[j], 3f), last.X, last.Y, cur.X, cur.Y);
                     }
                 }
             }
             //保存输出图片
-            //bmap.Save(Response.OutputStream, ImageFormat.Gif);
+            //bmap.Save(Response.OutputSt(e-1) ImageFormat.Gif);
             return bmap;
 
         }
