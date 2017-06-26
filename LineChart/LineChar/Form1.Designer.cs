@@ -58,7 +58,14 @@
             this.CB_max_min_flag = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lb_help = new System.Windows.Forms.Label();
+            this.cb_channel1 = new System.Windows.Forms.CheckBox();
+            this.cb_channel3 = new System.Windows.Forms.CheckBox();
+            this.cb_channel4 = new System.Windows.Forms.CheckBox();
+            this.cb_channel2 = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_autopara = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -95,7 +102,7 @@
             this.minYBox.Size = new System.Drawing.Size(52, 21);
             this.minYBox.TabIndex = 3;
             this.minYBox.Text = "0";
-            this.minYBox.TextChanged += new System.EventHandler(this.minYBox_TextChanged);
+            this.minYBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.enterFork_KeyDown);
             // 
             // label3
             // 
@@ -140,7 +147,7 @@
             this.scaleYBox.Size = new System.Drawing.Size(27, 21);
             this.scaleYBox.TabIndex = 7;
             this.scaleYBox.Text = "1";
-            this.scaleYBox.TextChanged += new System.EventHandler(this.scaleYBox_TextChanged);
+            this.scaleYBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.enterFork_KeyDown);
             // 
             // btn_open
             // 
@@ -162,7 +169,7 @@
             // 
             // btn_clean
             // 
-            this.btn_clean.Location = new System.Drawing.Point(749, 38);
+            this.btn_clean.Location = new System.Drawing.Point(749, 35);
             this.btn_clean.Name = "btn_clean";
             this.btn_clean.Size = new System.Drawing.Size(75, 23);
             this.btn_clean.TabIndex = 11;
@@ -177,7 +184,7 @@
             this.tb_console.Name = "tb_console";
             this.tb_console.ReadOnly = true;
             this.tb_console.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tb_console.Size = new System.Drawing.Size(227, 87);
+            this.tb_console.Size = new System.Drawing.Size(227, 82);
             this.tb_console.TabIndex = 13;
             // 
             // label8
@@ -197,7 +204,7 @@
             this.channelNumBox.Size = new System.Drawing.Size(27, 21);
             this.channelNumBox.TabIndex = 13;
             this.channelNumBox.Text = "1";
-            this.channelNumBox.TextChanged += new System.EventHandler(this.channelNumBox_TextChanged);
+            this.channelNumBox.TextChanged += new System.EventHandler(this.para_Changed);
             // 
             // label9
             // 
@@ -232,7 +239,8 @@
             this.datasizeBox.Name = "datasizeBox";
             this.datasizeBox.Size = new System.Drawing.Size(52, 21);
             this.datasizeBox.TabIndex = 3;
-            this.datasizeBox.Text = "500";
+            this.datasizeBox.Text = "1024";
+            this.datasizeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.enterFork_KeyDown);
             // 
             // label2
             // 
@@ -280,19 +288,21 @@
             this.scaleXBox.Size = new System.Drawing.Size(27, 21);
             this.scaleXBox.TabIndex = 7;
             this.scaleXBox.Text = "1";
-            this.scaleXBox.TextChanged += new System.EventHandler(this.scaleXBox_TextChanged);
+            this.scaleXBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.enterFork_KeyDown);
             // 
             // CB_max_min_flag
             // 
             this.CB_max_min_flag.AutoSize = true;
             this.CB_max_min_flag.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CB_max_min_flag.Checked = true;
+            this.CB_max_min_flag.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CB_max_min_flag.Location = new System.Drawing.Point(120, 65);
             this.CB_max_min_flag.Name = "CB_max_min_flag";
             this.CB_max_min_flag.Size = new System.Drawing.Size(108, 16);
             this.CB_max_min_flag.TabIndex = 16;
             this.CB_max_min_flag.Text = "最大、小值统计";
             this.CB_max_min_flag.UseVisualStyleBackColor = true;
-            this.CB_max_min_flag.CheckedChanged += new System.EventHandler(this.CB_max_min_flag_CheckedChanged);
+            this.CB_max_min_flag.CheckedChanged += new System.EventHandler(this.para_Changed);
             // 
             // label1
             // 
@@ -313,11 +323,98 @@
             this.lb_help.Text = "用法？";
             this.lb_help.Click += new System.EventHandler(this.lb_help_Click);
             // 
+            // cb_channel1
+            // 
+            this.cb_channel1.AutoSize = true;
+            this.cb_channel1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_channel1.Checked = true;
+            this.cb_channel1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_channel1.Location = new System.Drawing.Point(5, 3);
+            this.cb_channel1.Name = "cb_channel1";
+            this.cb_channel1.Size = new System.Drawing.Size(54, 16);
+            this.cb_channel1.TabIndex = 18;
+            this.cb_channel1.Tag = "1";
+            this.cb_channel1.Text = "通道1";
+            this.cb_channel1.UseVisualStyleBackColor = true;
+            this.cb_channel1.Visible = false;
+            this.cb_channel1.CheckedChanged += new System.EventHandler(this.para_Changed);
+            // 
+            // cb_channel3
+            // 
+            this.cb_channel3.AutoSize = true;
+            this.cb_channel3.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_channel3.Checked = true;
+            this.cb_channel3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_channel3.Location = new System.Drawing.Point(123, 3);
+            this.cb_channel3.Name = "cb_channel3";
+            this.cb_channel3.Size = new System.Drawing.Size(54, 16);
+            this.cb_channel3.TabIndex = 19;
+            this.cb_channel3.Tag = "3";
+            this.cb_channel3.Text = "通道3";
+            this.cb_channel3.UseVisualStyleBackColor = true;
+            this.cb_channel3.Visible = false;
+            this.cb_channel3.CheckedChanged += new System.EventHandler(this.para_Changed);
+            // 
+            // cb_channel4
+            // 
+            this.cb_channel4.AutoSize = true;
+            this.cb_channel4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_channel4.Checked = true;
+            this.cb_channel4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_channel4.Location = new System.Drawing.Point(183, 3);
+            this.cb_channel4.Name = "cb_channel4";
+            this.cb_channel4.Size = new System.Drawing.Size(54, 16);
+            this.cb_channel4.TabIndex = 20;
+            this.cb_channel4.Tag = "4";
+            this.cb_channel4.Text = "通道4";
+            this.cb_channel4.UseVisualStyleBackColor = true;
+            this.cb_channel4.Visible = false;
+            this.cb_channel4.CheckedChanged += new System.EventHandler(this.para_Changed);
+            // 
+            // cb_channel2
+            // 
+            this.cb_channel2.AutoSize = true;
+            this.cb_channel2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_channel2.Checked = true;
+            this.cb_channel2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_channel2.Location = new System.Drawing.Point(65, 3);
+            this.cb_channel2.Name = "cb_channel2";
+            this.cb_channel2.Size = new System.Drawing.Size(54, 16);
+            this.cb_channel2.TabIndex = 21;
+            this.cb_channel2.Tag = "2";
+            this.cb_channel2.Text = "通道2";
+            this.cb_channel2.UseVisualStyleBackColor = true;
+            this.cb_channel2.Visible = false;
+            this.cb_channel2.CheckedChanged += new System.EventHandler(this.para_Changed);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.cb_channel1);
+            this.panel1.Controls.Add(this.cb_channel2);
+            this.panel1.Controls.Add(this.cb_channel3);
+            this.panel1.Controls.Add(this.cb_channel4);
+            this.panel1.Location = new System.Drawing.Point(254, 63);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(247, 23);
+            this.panel1.TabIndex = 19;
+            // 
+            // btn_autopara
+            // 
+            this.btn_autopara.Location = new System.Drawing.Point(750, 62);
+            this.btn_autopara.Name = "btn_autopara";
+            this.btn_autopara.Size = new System.Drawing.Size(75, 23);
+            this.btn_autopara.TabIndex = 20;
+            this.btn_autopara.Text = "自动适配";
+            this.btn_autopara.UseVisualStyleBackColor = true;
+            this.btn_autopara.Click += new System.EventHandler(this.btn_autopara_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(880, 620);
+            this.Controls.Add(this.btn_autopara);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lb_help);
             this.Controls.Add(this.CB_max_min_flag);
             this.Controls.Add(this.label10);
@@ -351,6 +448,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,6 +485,12 @@
         private System.Windows.Forms.CheckBox CB_max_min_flag;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lb_help;
+        private System.Windows.Forms.CheckBox cb_channel1;
+        private System.Windows.Forms.CheckBox cb_channel3;
+        private System.Windows.Forms.CheckBox cb_channel4;
+        private System.Windows.Forms.CheckBox cb_channel2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btn_autopara;
     }
 }
 

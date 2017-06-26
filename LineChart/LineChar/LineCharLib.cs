@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace LineChar
 {
@@ -31,144 +32,25 @@ namespace LineChar
         Bitmap bmap;
         Graphics gph;
 
-        int spaceY = 20;     //Y轴刻度间距 一般固定为20 框体拉长显示更多范围
-        int spaceX = 20;     //X轴刻度间距 一般根据框体大小 框体拉长则拉长间隔
+        public int spaceY = 20;     //Y轴刻度间距 一般固定为20 框体拉长显示更多范围
+        public int spaceX = 20;     //X轴刻度间距 一般根据框体大小 框体拉长则拉长间隔
         int maxCountX = 0;   //最大刻度个数
         int maxCountY = 0;   //最大刻度个数
 
         float stepY = 0;     //数值对应的step个像素点
         float stepX = 0;     //数值对应的step个像素点
         public int dataArrayIndex = 0;
+        public int dataArrayIndexMax = 0;
 
-        float curMaxValue = 0;//当前最大值
-        float curMinValue = 0;//当前最小值
+        public float curMaxValue = 0;//当前最大值
+        public int curMaxValueIndex = 0;//当前最大值索引
+        public float curMinValue = 999999;//当前最小值
+        public int curMinValueIndex = 0;//当前最小值索引
         public float hisMaxValue = 0;//历史最大值
-        public float hisMinValue = 0;//历史最小值
+        public float hisMinValue = 999999;//历史最小值
 
         float[,] dataArray;
-        Brush[] dataColor = {
-Brushes.BlueViolet,
-Brushes.Brown,
-Brushes.BurlyWood,
-//Brushes.CadetBlue,
-Brushes.Chartreuse,
-//Brushes.Chocolate,
-//Brushes.Coral,
-Brushes.CornflowerBlue,
-Brushes.Crimson,
-//Brushes.Cyan,
-Brushes.DarkBlue,
-Brushes.DarkCyan,
-Brushes.DarkGoldenrod,
-Brushes.DarkGray,
-Brushes.DarkOrange,
-Brushes.DarkRed,
-Brushes.DarkSalmon,
-Brushes.DarkSeaGreen,
-Brushes.DarkTurquoise,
-Brushes.DarkViolet,
-Brushes.DeepPink,
-Brushes.DeepSkyBlue,
-Brushes.DimGray,
-Brushes.DodgerBlue,
-Brushes.Firebrick,
-Brushes.FloralWhite,
-Brushes.ForestGreen,
-Brushes.Fuchsia,
-Brushes.Gainsboro,
-Brushes.Gold,
-Brushes.Goldenrod,
-Brushes.Gray,
-Brushes.Green,
-Brushes.GreenYellow,
-Brushes.Honeydew,
-Brushes.HotPink,
-Brushes.IndianRed,
-Brushes.Indigo,
-Brushes.Ivory,
-Brushes.Khaki,
-Brushes.Lavender,
-Brushes.LavenderBlush,
-Brushes.LawnGreen,
-Brushes.LemonChiffon,
-Brushes.LightBlue,
-Brushes.LightCoral,
-Brushes.LightCyan,
-Brushes.LightGoldenrodYellow,
-Brushes.LightGray,
-Brushes.LightGreen,
-Brushes.LightPink,
-Brushes.LightSalmon,
-Brushes.LightSeaGreen,
-Brushes.LightSkyBlue,
-Brushes.LightSlateGray,
-Brushes.LightSteelBlue,
-Brushes.LightYellow,
-Brushes.Lime,
-Brushes.LimeGreen,
-Brushes.Linen,
-Brushes.Magenta,
-Brushes.Maroon,
-Brushes.MediumAquamarine,
-Brushes.MediumBlue,
-Brushes.MediumOrchid,
-Brushes.MediumPurple,
-Brushes.MediumSeaGreen,
-Brushes.MediumSlateBlue,
-Brushes.MediumSpringGreen,
-Brushes.MediumTurquoise,
-Brushes.MediumVioletRed,
-Brushes.MidnightBlue,
-Brushes.MintCream,
-Brushes.MistyRose,
-Brushes.Moccasin,
-Brushes.NavajoWhite,
-Brushes.Navy,
-Brushes.OldLace,
-Brushes.Olive,
-Brushes.OliveDrab,
-Brushes.Orange,
-Brushes.OrangeRed,
-Brushes.Orchid,
-Brushes.PaleGoldenrod,
-Brushes.PaleGreen,
-Brushes.PaleTurquoise,
-Brushes.PaleVioletRed,
-Brushes.PapayaWhip,
-Brushes.PeachPuff,
-Brushes.Peru,
-Brushes.Pink,
-Brushes.Plum,
-Brushes.PowderBlue,
-Brushes.Purple,
-Brushes.Red,
-Brushes.RosyBrown,
-Brushes.RoyalBlue,
-Brushes.SaddleBrown,
-Brushes.Salmon,
-Brushes.SandyBrown,
-Brushes.SeaGreen,
-Brushes.SeaShell,
-Brushes.Sienna,
-Brushes.Silver,
-Brushes.SkyBlue,
-Brushes.SlateBlue,
-Brushes.SlateGray,
-Brushes.Snow,
-Brushes.SpringGreen,
-Brushes.SteelBlue,
-Brushes.Tan,
-Brushes.Teal,
-Brushes.Thistle,
-Brushes.Tomato,
-Brushes.Transparent,
-Brushes.Turquoise,
-Brushes.Violet,
-Brushes.Wheat,
-Brushes.White,
-Brushes.WhiteSmoke,
-Brushes.Yellow,
-Brushes.YellowGreen };
+        Brush[] dataColor = { Brushes.BlueViolet, Brushes.Brown, Brushes.BurlyWood, Brushes.Chartreuse, Brushes.Crimson, Brushes.DarkBlue, Brushes.DarkCyan, Brushes.DarkGoldenrod, Brushes.DarkGray, Brushes.DarkOrange, Brushes.DarkRed, Brushes.DarkSalmon, Brushes.DarkSeaGreen, Brushes.DarkTurquoise, Brushes.DarkViolet, Brushes.DeepPink, Brushes.DeepSkyBlue, Brushes.DimGray, Brushes.DodgerBlue, Brushes.Firebrick, Brushes.FloralWhite, Brushes.ForestGreen, Brushes.Fuchsia, Brushes.Gainsboro, Brushes.Gold, Brushes.Goldenrod, Brushes.Gray, Brushes.Green, Brushes.GreenYellow, Brushes.Honeydew, Brushes.HotPink, Brushes.IndianRed, Brushes.Indigo, Brushes.Ivory, Brushes.Khaki, Brushes.Lavender, Brushes.LavenderBlush, Brushes.LawnGreen, Brushes.LemonChiffon, Brushes.LightBlue, Brushes.LightCoral, Brushes.LightCyan, Brushes.LightGoldenrodYellow, Brushes.LightGray, Brushes.LightGreen, Brushes.LightPink, Brushes.LightSalmon, Brushes.LightSeaGreen, Brushes.LightSkyBlue, Brushes.LightSlateGray, Brushes.LightSteelBlue, Brushes.LightYellow, Brushes.Lime, Brushes.LimeGreen, Brushes.Linen, Brushes.Magenta, Brushes.Maroon, Brushes.MediumAquamarine, Brushes.MediumBlue, Brushes.MediumOrchid, Brushes.MediumPurple, Brushes.MediumSeaGreen, Brushes.MediumSlateBlue, Brushes.MediumSpringGreen, Brushes.MediumTurquoise, Brushes.MediumVioletRed, Brushes.MidnightBlue, Brushes.MintCream, Brushes.MistyRose, Brushes.Moccasin, Brushes.NavajoWhite, Brushes.Navy, Brushes.OldLace, Brushes.Olive, Brushes.OliveDrab, Brushes.Orange, Brushes.OrangeRed, Brushes.Orchid, Brushes.PaleGoldenrod, Brushes.PaleGreen, Brushes.PaleTurquoise, Brushes.PaleVioletRed, Brushes.PapayaWhip, Brushes.PeachPuff, Brushes.Peru, Brushes.Pink, Brushes.Plum, Brushes.PowderBlue, Brushes.Purple, Brushes.Red, Brushes.RosyBrown, Brushes.RoyalBlue, Brushes.SaddleBrown, Brushes.Salmon, Brushes.SandyBrown, Brushes.SeaGreen, Brushes.SeaShell, Brushes.Sienna, Brushes.Silver, Brushes.SkyBlue, Brushes.SlateBlue, Brushes.SlateGray, Brushes.Snow, Brushes.SpringGreen, Brushes.SteelBlue, Brushes.Tan, Brushes.Teal, Brushes.Thistle, Brushes.Tomato, Brushes.Transparent, Brushes.Turquoise, Brushes.Violet, Brushes.Wheat, Brushes.White, Brushes.WhiteSmoke, Brushes.Yellow, Brushes.YellowGreen };
 
         int LineCharInit(Form1 form){
             return 0;
@@ -212,11 +94,11 @@ Brushes.YellowGreen };
             }
             if (configVO.max_min_flag == true)//统计最大最小值
             {
-                if (dataArrayIndex == 0)
-                {
-                    hisMaxValue = 0;
-                    hisMinValue = 9999999;
-                }
+                //if (dataArrayIndex == 0)
+                //{
+                //    hisMaxValue = 0;
+                //    hisMinValue = 9999999;
+                //}
 
                 if (channel == configVO.channelNum - 1)
                 {
@@ -224,12 +106,22 @@ Brushes.YellowGreen };
                     curMinValue = 9999999;
                     for (int j = 0; j < configVO.channelNum; j++)
                     {
+                        if (!configVO.channel1 && j == 0) continue;
+                        if (!configVO.channel2 && j == 1) continue;
+                        if (!configVO.channel3 && j == 2) continue;
+                        if (!configVO.channel4 && j == 3) continue;
                         for (int i = 0; i < dataArrayIndex - 1; i++)
                         {
                             if (dataArray[j, i] > curMaxValue)
+                            {
                                 curMaxValue = dataArray[j, i];
+                                curMaxValueIndex = i;
+                            }
                             if (dataArray[j, i] < curMinValue)
+                            {
                                 curMinValue = dataArray[j, i];
+                                curMinValueIndex = i;
+                            }
                         }
                     }
 
@@ -243,9 +135,12 @@ Brushes.YellowGreen };
         }
 
         public void clean_data() {
+            dataArrayIndexMax = dataArrayIndex;
             dataArrayIndex = 0;
             curMaxValue = 0;//当前最大值
             curMinValue = 0;//当前最小值
+            hisMaxValue = 0;//当前最大值
+            hisMinValue = 0;//当前最小值
         }
         public Bitmap flush()
         {
@@ -279,36 +174,51 @@ Brushes.YellowGreen };
             gph.FillPolygon(new SolidBrush(Color.Black), ypt);
             //gph.DrawString("单位(万)", new Font("宋体", 12), Brushes.Black, new PointF(0, 7));
 
+            Pen virtualLinePen = new Pen(Color.Black, 1);
+            virtualLinePen.DashStyle = DashStyle.Custom;
+            virtualLinePen.DashPattern = new float[] { 1f, 2f };
             for (int i = 1; i <= maxCountY; i++)//画y轴刻度
             {
                 gph.DrawString((configVO.minY + i * configVO.scaleY).ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X - 40, left_down.Y - i * spaceY - 6));
-                gph.DrawLine(Pens.Olive, left_down.X - 3, left_down.Y - i * spaceY, configVO.grap_width - 40, left_down.Y - i * spaceY);
+                gph.DrawLine(virtualLinePen, left_down.X - 3, left_down.Y - i * spaceY, configVO.grap_width - 40, left_down.Y - i * spaceY);
             }
             StringFormat strF = new StringFormat(StringFormatFlags.DirectionVertical);
 
             for (int i = 1; i <= maxCountX; i++)//画x轴刻度
             {
-                gph.DrawString((i * configVO.scaleX).ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + (i - 1 ) * spaceX - 6, left_down.Y), strF);
-                gph.DrawLine(Pens.Olive, left_down.X + (i) * spaceX, left_down.X + 3, left_down.X + (i) * spaceX, configVO.grap_height - 40 );
+                gph.DrawString((i * configVO.scaleX).ToString(), new Font("宋体", 11), Brushes.Black, new PointF(left_down.X + (i) * spaceX - 6, left_down.Y), strF);
+                gph.DrawLine(virtualLinePen, left_down.X + (i) * spaceX, left_down.X + 3, left_down.X + (i) * spaceX, configVO.grap_height - 40);
             }
 
 
             if (configVO.max_min_flag == true)
             {
                 //画当前最大值、最小值   历史最大值最小值
-                gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMaxValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMaxValue - configVO.minY) * stepY);
-                gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMinValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMinValue - configVO.minY) * stepY);
+                //gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMaxValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMaxValue - configVO.minY) * stepY);
+                //gph.DrawLine(Pens.Green, left_down.X, left_down.Y - (curMinValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMinValue - configVO.minY) * stepY);
+                Font font = new Font("宋体", 10, FontStyle.Bold);
+                gph.DrawLine(Pens.Red, left_down.X + curMaxValueIndex * stepX, left_down.Y, left_down.X + curMaxValueIndex * stepX, configVO.grap_height - left_down.Y);
+                gph.DrawLine(Pens.Red, left_down.X, left_down.Y - (curMaxValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMaxValue - configVO.minY) * stepY);
+                gph.DrawString("最大值：X:" + curMaxValueIndex.ToString() + "\tY:" + curMaxValue.ToString(), font, Brushes.Black,
+                    new PointF(left_down.X + curMaxValueIndex * stepX + 10, right_down.Y - (curMaxValue - configVO.minY) * stepY - 20));
+                if (Math.Abs(curMinValue) > 0)
+                {
+                    gph.DrawLine(Pens.Blue, left_down.X + curMinValueIndex * stepX, left_down.Y, left_down.X + curMinValueIndex * stepX, configVO.grap_height - left_down.Y);
+                    gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (curMinValue - configVO.minY) * stepY, right_down.X, right_down.Y - (curMinValue - configVO.minY) * stepY);
+                }
 
-                gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (hisMaxValue - configVO.minY) * stepY, right_down.X, right_down.Y - (hisMaxValue - configVO.minY) * stepY);
-                gph.DrawString("最大值：" + hisMaxValue.ToString(), new Font("宋体", 12), Brushes.Black, new PointF(left_down.X + 40, right_down.Y - (hisMaxValue - configVO.minY) * stepY - 20));
-                if (hisMinValue > 0)
-                    gph.DrawLine(Pens.Blue, left_down.X, left_down.Y - (hisMinValue - configVO.minY) * stepY, right_down.X, right_down.Y - (hisMinValue - configVO.minY) * stepY);
-                gph.DrawString("最小值：" + hisMinValue.ToString(), new Font("宋体", 12), Brushes.Black, new PointF(left_down.X + 40, right_down.Y - (hisMinValue - configVO.minY) * stepY + 10));
+                gph.DrawString("最小值：X:" + curMinValueIndex + "\tY:" + curMinValue.ToString(), font, Brushes.Black,
+                    new PointF(left_down.X + curMinValueIndex * stepX + 10, right_down.Y - (curMinValue - configVO.minY) * stepY + 10));
             }
 
             PointF show_color = new PointF(0,10);//左上
             for (int j = 0; j < configVO.channelNum; j++)
-            {//show_color.X = show_color.X + (j * 100);
+            {
+                if (!configVO.channel1 && j == 0) continue;
+                if (!configVO.channel2 && j == 1) continue;
+                if (!configVO.channel3 && j == 2) continue;
+                if (!configVO.channel4 && j == 3) continue;
+                //show_color.X = show_color.X + (j * 100);
                 show_color.X =  (j * 100)+10;
                 gph.DrawString("通道" + (j + 1).ToString() + ":", new Font("宋体", 10), Brushes.Black,show_color);
                 gph.DrawLine(new Pen(dataColor[j], 3f), show_color.X + 44, show_color.Y + 7, show_color.X + 80, show_color.Y + 7);

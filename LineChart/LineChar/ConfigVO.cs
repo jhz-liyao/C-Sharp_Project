@@ -15,5 +15,9 @@ namespace LineChar
         public int channelNum;//通道数
         public int datasize;//图点缓冲区大小
         public bool max_min_flag;//是否打开最大最小值统计
+        public bool channel1 = true;//选择是否显示通道
+        public bool channel2 = true;
+        public bool channel3 = true;
+        public bool channel4 = true;
     }
 }
