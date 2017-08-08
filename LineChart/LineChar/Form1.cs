@@ -191,8 +191,10 @@ namespace LineChar
                 }
                 catch (Exception ex) { }
             }
-            comboBox1.SelectedIndex = 0;
-
+            try
+            {
+                comboBox1.SelectedIndex = 0;
+            }catch (Exception ex) { }
             minYBox.Text = ConfigUtil.GetValue("minY") == null ? "0" : ConfigUtil.GetValue("minY");
             scaleXBox.Text = ConfigUtil.GetValue("scaleX") == null ? "1" : ConfigUtil.GetValue("scaleX");
             scaleYBox.Text = ConfigUtil.GetValue("scaleY") == null ? "1" : ConfigUtil.GetValue("scaleY");

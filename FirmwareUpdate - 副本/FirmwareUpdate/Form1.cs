@@ -33,7 +33,7 @@ namespace FirmwareUpdate
                 }
                 catch (Exception ex) { }
             }
-            comboBox1.SelectedIndex = 0;
+            //comboBox1.SelectedIndex = 0;
         }
 
         FileStream bootloaderFS ;
@@ -43,6 +43,16 @@ namespace FirmwareUpdate
         FileStream programEXEFS;
         private void button1_Click(object sender, EventArgs e)
         {
+            double yue = 0;
+            const int step = 766;
+            for (int d = 0; d < 3650; d++) {
+                yue = yue + yue * 0.0001;
+                if (d % 30 == 0)
+                    yue += step;
+            }
+            MessageBox.Show(yue.ToString());
+
+
             string newFile = textBox1.Text.Substring(0, textBox1.Text.LastIndexOf('\\')) + "\\Image.bin";
             bootloaderFS = File.Open(textBox1.Text, FileMode.Open);
             programFS = File.Open(textBox2.Text, FileMode.Open);

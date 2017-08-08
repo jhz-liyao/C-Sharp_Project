@@ -24,3 +24,11 @@ G:\#个人项目\Visual Studio Project\FirmwareUpdate - 副本\FirmwareUpdate\ob
 G:\#个人项目\Visual Studio Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.pdb
 E:\资源(G：)\#个人项目\Visual Studio Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.exe
 E:\资源(G：)\#个人项目\Visual Studio Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.pdb
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.exe
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.pdb
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.csprojResolveAssemblyReference.cache
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.Form1.resources
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.Properties.Resources.resources
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\obj\x86\Debug\FirmwareUpdate.csproj.GenerateResource.Cache
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\bin\Debug\FirmwareUpdate.exe
+D:\LiyaoProject\C#_Project\FirmwareUpdate - 副本\FirmwareUpdate\bin\Debug\FirmwareUpdate.pdb

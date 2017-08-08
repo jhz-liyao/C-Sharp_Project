@@ -299,8 +299,6 @@
             this.Name = "Form1";
             this.Text = "liyao";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
